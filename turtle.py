@@ -1,5 +1,6 @@
 import pygame
-
+import time
+import random
 def init():
     global screen, canvas, clock, sound
     global player1, x1, y1, score1
@@ -44,7 +45,11 @@ def updateScreen():
     screen.blit(player1, [x1, y1])
     screen.blit(player2, [x2, y2])
     screen.blit(coin, [coin_x, coin_y])
-
+    font = pygame.font.Font("./Asset1_ball/DFTTNC5.TTC", 14)
+    text1 = font.render(str(score1), True, [255, 255, 0])
+    text2 = font.render(str(score2), True, [255, 255, 0])
+    screen.blit(text1, [x1-10, y1-10])
+    screen.blit(text2, [x2-10, y2-10])
     pygame.display.update()
 
 
@@ -69,12 +74,45 @@ def checkUserControl():
     if keys[pygame.K_DOWN]:
         y2 += 5
 
+
+def checkCollision(x1, y1, x2, y2):
+    xDiff = x1-x2
+    yDiff = y1-y2
+    if abs(xDiff) < 30 and abs(yDiff) < 30:
+        return True
+    else:
+        return False
+
+
+def checkObjectCollision():
+    global x1, y1, x2, y2, coin_x, coin_y
+    global sound, score1, score2
+    if checkCollision(x1, y1, x2, y2):
+        xDiff = x1-x2
+        yDiff = y1-y2
+        x1 += xDiff*2
+        x2 -= xDiff*2
+        y1 += yDiff*2
+        y2 -= yDiff*2
+    if checkCollision(x1, y1, coin_x, coin_y):
+        sound.play()
+        coin_x = random.randrange(50, 350)
+        coin_y = random.randrange(50, 200)
+        time.sleep(1)
+        score1 += 1
+    if checkCollision(x2, y2, coin_x, coin_y):
+        sound.play()
+        coin_x = random.randrange(50, 350)
+        coin_y = random.randrange(50, 200)
+        time.sleep(1)
+        score2 += 1
 """ 主程式 """
 init()
 running = True
 while running:
     updateScreen()
     checkUserControl()
+    checkObjectCollision()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
