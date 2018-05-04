@@ -22,6 +22,7 @@ while running:
     p2.checkUserControl(pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d)
     p1.checkCollisionCoin(coin)
     p2.checkCollisionCoin(coin)
+    p1.checkCollideOther(p2)
     p1.blit_me(screen)
     p2.blit_me(screen)
     pygame.display.update()

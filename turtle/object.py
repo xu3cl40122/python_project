@@ -44,7 +44,18 @@ class Player():
         print(self.rect.left,self.rect.top)
     def checkCollisionCoin(self,coin) :
         if pygame.sprite.collide_mask(self, coin):
-            coin.rect.left
+            self.score += 1
+            coin.rect.left = random.randrange(0,self.bgWidth)
+            coin.rect.top = random.randrange(0,self.bgHeight)
+            time.sleep(1)
+    def checkCollideOther(self,other):
+        if pygame.sprite.collide_mask(self, other):
+            xDiff = self.rect.left - other.rect.left
+            yDiff = self.rect.top - other.rect.top
+            self.rect.left += xDiff*2
+            self.rect.top += yDiff*2
+            other.rect.left -= xDiff*2
+            other.rect.top -= yDiff*2
 
 class Object():
     def __init__(self, pic, x, y):
