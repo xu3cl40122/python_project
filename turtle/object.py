@@ -13,7 +13,7 @@ class Player():
         #設定背景寬度 後面用來確保腳色不會跑到地圖外
         self.bgWidth, self.bgHeight = bg_size[0], bg_size[1]
         self.score = score
-        self.speed = 5
+        self.speed = 10
 
 
     def blit_me(self, screen):
@@ -67,3 +67,16 @@ class Object():
         self.mask = pygame.mask.from_surface(self.canvas)
     def blit_me(self, screen):
         screen.blit(self.canvas, [self.rect.left, self.rect.top])
+
+class Rock():
+    def __init__(self, pic, x, y):
+        self.canvas = pygame.image.load(pic)
+        self.canvas.convert()
+        self.rect = self.canvas.get_rect()
+        self.rect.left = x
+        self.rect.top = y
+        self.mask = pygame.mask.from_surface(self.canvas)
+
+    def blit_me(self, screen):
+        screen.blit(self.canvas, [self.rect.left, self.rect.top])
+    
