@@ -15,7 +15,7 @@ coin = Object('./Asset1_ball/coin.png', 400, 300)
 p1 = Player('./Asset1_ball/sprite1.png',100,150,0,move_size)
 p2 = Player('./Asset1_ball/sprite2.png',300,150,0,move_size)
 rock_list = []
-for i in range(0,6):
+for i in range(0,8):
     rock = Rock('./Asset1_ball/rock.png', 60,60,[bg_size[0]+100,bg_size[1]+100])
     rock_list.append(rock)
 running = True

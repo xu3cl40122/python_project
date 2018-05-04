@@ -18,7 +18,9 @@ class Player():
 
     def blit_me(self, screen):
         screen.blit(self.canvas, [self.rect.left, self.rect.top])
-
+        font = pygame.font.Font("./Asset1_ball/DFTTNC5.TTC", 14)
+        txtScore = font.render(str(self.score), True, [255, 255, 0])
+        screen.blit(txtScore, [self.rect.left-10, self.rect.top-10])
     def checkUserControl(self, up, down, left, right):
         keys = pygame.key.get_pressed()
         if keys[up]:
