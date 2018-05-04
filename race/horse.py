@@ -17,6 +17,8 @@ class Horse():
     def blit_me(self, screen):
         screen.blit(self.canvas, [self.rect.left, self.rect.top])
 
+    def changeImg(self):
+        
 
 class Object():
     def __init__(self, pic, x, y):
