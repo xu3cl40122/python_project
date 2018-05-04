@@ -4,14 +4,15 @@ import random
 from object import*
 
 pygame.init()
-screen = pygame.display.set_mode([400, 240])
+bg_size = [400, 240]
+screen = pygame.display.set_mode(bg_size)
 pygame.display.set_caption("mySecondGame")
 clock = pygame.time.Clock()
 
 bg = Object('./Asset1_ball/bg.png',0,0)
 coin = Object('./Asset1_ball/coin.png', 200, 50)
-p1 = Player('./Asset1_ball/sprite1.png',100,150,0)
-p2 = Player('./Asset1_ball/sprite2.png',300,150,0)
+p1 = Player('./Asset1_ball/sprite1.png',100,150,0,[385,220])
+p2 = Player('./Asset1_ball/sprite2.png',300,150,0,[385,220])
 running = True
 while running:
     clock.tick(30)

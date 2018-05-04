@@ -1,8 +1,8 @@
 import pygame
 import time
-
+import random
 class Player():
-    def __init__(self, pic, x, y, score):
+    def __init__(self, pic, x, y, score,bg_size):
         self.canvas = pygame.image.load(pic)
         self.canvas.convert()
         # 依據圖片創建rect(hitbox)
@@ -10,7 +10,11 @@ class Player():
         self.mask = pygame.mask.from_surface(self.canvas)
         #為 rect 設定座標，便於操控上下左右
         self.rect.left, self.rect.top = x,y
+        #設定背景寬度 後面用來確保腳色不會跑到地圖外
+        self.bgWidth, self.bgHeight = bg_size[0], bg_size[1]
         self.score = score
+        self.speed = 5
+
 
     def blit_me(self, screen):
         screen.blit(self.canvas, [self.rect.left, self.rect.top])
@@ -18,16 +22,30 @@ class Player():
     def checkUserControl(self, up, down, left, right):
         keys = pygame.key.get_pressed()
         if keys[up]:
-            self.rect.top -= 5
+            if self.rect.top > 0:
+                self.rect.top -= self.speed
+            else: 
+                self.rect.top = 0 #確保不會跑到地圖外
         if keys[down]:
-            self.rect.top += 5
+            if self.rect.top < self.bgHeight:
+                self.rect.top += self.speed
+            else : 
+                self.rect.top = self.bgHeight
         if keys[left]:
-            self.rect.left -= 5
+            if self.rect.left > 0:
+                self.rect.left -= self.speed
+            else:
+                self.rect.left = 0
         if keys[right]:
-            self.rect.left += 5 
-    def checkCollisionCoin(self,other) :
-        if pygame.sprite.collide_mask(self, other):
-            print("Collision occurred")
+            if self.rect.left < self.bgWidth:
+                self.rect.left += self.speed
+            else: 
+                self.rect.left = self.bgWidth
+        print(self.rect.left,self.rect.top)
+    def checkCollisionCoin(self,coin) :
+        if pygame.sprite.collide_mask(self, coin):
+            coin.rect.left
+
 class Object():
     def __init__(self, pic, x, y):
         self.canvas = pygame.image.load(pic)
