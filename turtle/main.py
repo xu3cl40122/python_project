@@ -25,6 +25,8 @@ while running:
     p1.checkCollisionCoin(coin)
     p2.checkCollisionCoin(coin)
     p1.checkCollideOther(p2)
+    p1.checkCollideRock(rock)
+    p2.checkCollideRock(rock)
     rock.move()
     p1.blit_me(screen)
     p2.blit_me(screen)

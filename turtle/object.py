@@ -41,7 +41,6 @@ class Player():
                 self.rect.left += self.speed
             else: 
                 self.rect.left = self.bgWidth
-        print(self.rect.left,self.rect.top)
     def checkCollisionCoin(self,coin) :
         if pygame.sprite.collide_mask(self, coin):
             self.score += 1
@@ -56,7 +55,13 @@ class Player():
             self.rect.top += yDiff*2
             other.rect.left -= xDiff*2
             other.rect.top -= yDiff*2
-
+    def checkCollideRock(self,other):
+        if pygame.sprite.collide_mask(self, other):
+            self.score -=1
+            xDiff = self.rect.left - other.rect.left
+            yDiff = self.rect.top - other.rect.top
+            self.rect.left += xDiff*1
+            self.rect.top += yDiff*1
 class Object():
     def __init__(self, pic, x, y):
         self.canvas = pygame.image.load(pic)
