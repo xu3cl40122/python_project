@@ -14,7 +14,7 @@ bg = Object('./Asset1_ball/space800_800.jpg',0,0)
 coin = Object('./Asset1_ball/coin.png', 400, 300)
 p1 = Player('./Asset1_ball/sprite1.png',100,150,0,move_size)
 p2 = Player('./Asset1_ball/sprite2.png',300,150,0,move_size)
-rock = Rock('./Asset1_ball/rock.png', 60,60)
+rock = Rock('./Asset1_ball/rock.png', 60,60,[bg_size[0]+100,bg_size[1]+100])
 running = True
 while running:
     clock.tick(30)
@@ -25,6 +25,7 @@ while running:
     p1.checkCollisionCoin(coin)
     p2.checkCollisionCoin(coin)
     p1.checkCollideOther(p2)
+    rock.move()
     p1.blit_me(screen)
     p2.blit_me(screen)
     rock.blit_me(screen)

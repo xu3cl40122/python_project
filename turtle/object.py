@@ -69,14 +69,33 @@ class Object():
         screen.blit(self.canvas, [self.rect.left, self.rect.top])
 
 class Rock():
-    def __init__(self, pic, x, y):
+    def __init__(self, pic, x, y, move_size):
         self.canvas = pygame.image.load(pic)
         self.canvas.convert()
         self.rect = self.canvas.get_rect()
         self.rect.left = x
         self.rect.top = y
         self.mask = pygame.mask.from_surface(self.canvas)
-
+        self.speed = [random.randrange(-10,10,3),random.randrange(-10,10,3)]
+        self.bgWidth, self.bgHeight = move_size[0], move_size[1]
     def blit_me(self, screen):
         screen.blit(self.canvas, [self.rect.left, self.rect.top])
-    
+
+    def move(self):
+        self.rect.left += self.speed[0]
+        self.rect.top += self.speed[1]
+        if self.rect.top < -100 : 
+            self.rect.top = self.bgHeight
+            self.resetSpeed()
+        if self.rect.top > self.bgHeight:
+            self.rect.top = -100
+            self.resetSpeed()
+        if self.rect.left < -100 :
+            self.rect.left = self.bgHeight
+            self.resetSpeed()
+        if self.rect.left > self.bgWidth:
+            self.rect.left = -100
+            self.resetSpeed()
+
+    def resetSpeed(self):
+        self.speed = [random.randrange(-10,10,3),random.randrange(-10,10,3)]
