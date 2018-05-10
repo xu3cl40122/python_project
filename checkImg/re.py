@@ -7,11 +7,17 @@ import re
 
 
 def findImg(re_rule, files):
-    for j in range(len(files)):
-           match_object = re.match(re_rule, files[j])
-           if match_object != None:
+    i = 0
+    while i < len(files) :
+        isFound = False
+        match_object = re.match(re_rule, files[i], re.IGNORECASE)
+        if match_object != None:
                print(match_object)
-               
+               isFound = True
+               break
+        i +=1
+    if isFound == False :
+        print('------------'+ re_rule + ' not found -------------')
 
 
 wb = load_workbook(filename='./test.xlsx')
