@@ -14,7 +14,6 @@ def findImg(re_rule, files):
         isFound = False
         match_object = re.match(re_rule, files[i], re.IGNORECASE)
         if match_object != None:
-               print(match_object)
                isFound = True
                break
         i += 1
@@ -38,7 +37,7 @@ wb_write = Workbook()
 ws_w = wb_write.active
 ws_w.title = "output"
 # init excel to read
-wb_read = load_workbook(filename='./landscape.xlsx')
+wb_read = load_workbook(filename='./tr_pic.xlsx')
 ws_r = wb_read['ts1']
 
 
@@ -63,9 +62,10 @@ def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
             # 取得路徑下所有檔案與子目錄名稱
             try:
                 files = listdir(mypath)
-                print(files)
             except FileNotFoundError:
                 ws_w.cell(row=r, column=3).value = 'error'
+                print('000000 error 000000')
+                print(mypath)
                 continue
             imgToFind = str(ws_r.cell(row=r, column=3).value)
             p_isFound = findImg(imgToFind, files)
@@ -79,4 +79,4 @@ def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
     wb_write.save(outputFile)
 
 
-main('/02', 354)
+main('/05', 1235, 'tr_pic_output.xlsx')
