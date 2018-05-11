@@ -22,6 +22,16 @@ def findImg(re_rule, files):
         return False
     return True
 
+
+def writeOutput(isFound, row, tr_id, imgToFind):
+    if isFound :
+        ws_w.cell(row=row, column=3).value = 'o'
+    else:
+        ws_w.cell(row=row, column=3).value = 'not found'
+    ws_w.cell(row=row, column=2).value = imgToFind
+    ws_w.cell(row=row, column=1).value = tr_id
+
+
 # init excel to write
 wb_write = Workbook()
 ws_w = wb_write.active
@@ -29,29 +39,30 @@ ws_w.title = "output"
 # init excel to read
 wb_read = load_workbook(filename='./test.xlsx')
 ws_r = wb_read['ts1']
-tr_id = '0'
+
 
 # --- main ---  依據 excel 的 row 跑
-for r in range(1,94) :
-    #判斷是否換一條步道
-    if(tr_id != str(ws_r.cell(row=r, column=2).value)) :
-        tr_id = str(ws_r.cell(row=r, column=2).value)
-        print('change')
-        mypath = "./img/" + tr_id + "/05"
-        # 取得所有檔案與子目錄名稱
-        files = listdir(mypath)
-        print(files)
-        imgToFind = str(ws_r.cell(row=r, column=3).value)
-        if findImg(imgToFind,files) == False :
-            ws_w.cell(row=r, column=4).value = 'not found'
-        else :
-            ws_w.cell(row=r, column=4).value = 'o'
-    else :
-        print('same')
-        imgToFind = str(ws_r.cell(row=r, column=3).value)
-        if findImg(imgToFind, files) == False:
-            ws_w.cell(row=r, column=4).value = 'not found'
-        else:
-            ws_w.cell(row=r, column=4).value = 'o'
+def main(subFile = '/05'):
+    tr_id = '0'
+    for r in range(1,1228) :
+        #判斷是否換一條步道
+        if(tr_id != str(ws_r.cell(row=r, column=2).value)) :
+            tr_id = str(ws_r.cell(row=r, column=2).value)
+            print('change'+tr_id)
+            # 依 loop 更換路徑
+            mypath = "./" + tr_id + subFile
+            # 取得路徑下所有檔案與子目錄名稱
+            files = listdir(mypath)
+            print(files)
+            imgToFind = str(ws_r.cell(row=r, column=3).value)
+            p_isFound = findImg(imgToFind,files)
+            writeOutput(p_isFound, r, tr_id ,imgToFind)
 
-wb_write.save('output.xlsx')
+        else :
+            imgToFind = str(ws_r.cell(row=r, column=3).value)
+            p_isFound = findImg(imgToFind, files)
+            writeOutput(p_isFound, r, tr_id, imgToFind)
+
+    wb_write.save('output.xlsx')
+
+main()
