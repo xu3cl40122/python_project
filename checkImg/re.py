@@ -47,18 +47,16 @@ def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
     tr_id = '0'
     for r in range(1, line):
         # if 搜尋的怪怪的
+        if str(ws_r.cell(row=r, column=2).value) == 'None' or str(ws_r.cell(row=r, column=2).value) == "":
+            ws_w.cell(row=r, column=3).value = 'null line'
+            continue
         if (len(str(ws_r.cell(row=r, column=3).value)) < 3) or str(ws_r.cell(row=r, column=3).value) == 'None':
             ws_w.cell(row=r, column=3).value = 'target??'
             continue
-        if len(str(ws_r.cell(row=r, column=2).value)) < 1 or str(ws_r.cell(row=r, column=3).value) == 'None':
-            ws_w.cell(row=r, column=3).value = 'null line'
-            continue
+
         #判斷是否換一條步道
         if(tr_id != str(ws_r.cell(row=r, column=2).value)):
             tr_id = str(ws_r.cell(row=r, column=2).value)
-            if tr_id == 'None':
-                print('----- get none ---')
-                continue
             print('change'+tr_id)
             # 依 loop 更換路徑
             mypath = "./" + tr_id + subFile
@@ -68,6 +66,7 @@ def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
                 print(files)
             except FileNotFoundError:
                 ws_w.cell(row=r, column=3).value = 'error'
+                continue
             imgToFind = str(ws_r.cell(row=r, column=3).value)
             p_isFound = findImg(imgToFind, files)
             writeOutput(p_isFound, r, tr_id, imgToFind)
@@ -80,4 +79,4 @@ def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
     wb_write.save(outputFile)
 
 
-main('/02', 352)
+main('/02', 354)
