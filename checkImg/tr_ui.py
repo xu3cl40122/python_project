@@ -1,5 +1,5 @@
 import tkinter as tk
-import re as re 
+import tr as tr
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -42,7 +42,7 @@ class Application(tk.Frame):
     def say_hi(self):
         print(self.rows.get())
     def start(self):
-        re.main()
+        tr.main()
 
 
 root = tk.Tk()
