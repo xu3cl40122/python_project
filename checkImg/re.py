@@ -32,27 +32,33 @@ def writeOutput(isFound, row, tr_id, imgToFind):
     ws_w.cell(row=row, column=1).value = tr_id
 
 
-# init excel to write
-wb_write = Workbook()
-ws_w = wb_write.active
-ws_w.title = "output"
-# init excel to read
-wb_read = load_workbook(filename='./tr_pic.xlsx')
-ws_r = wb_read['ts1']
 
 
-# --- main ---  依據 excel 的 row 跑
-def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
+
+# --- main ---  
+def main(subFile='/05', line=1228, outputFile='output_2.xlsx', input_file='./tr_pic.xlsx'):
+    global wb_write, wb_read , ws_w, ws_r
+    # init excel to write
+    wb_write = Workbook()
+    ws_w = wb_write.active
+    ws_w.title = "output"
+    # init excel to read
+    wb_read = load_workbook(filename=input_file)
+    ws_r = wb_read['ts1']
     tr_id = '0'
+
+    # --- 主迴圈 依據 excel 的 row 跑 ---
     for r in range(1, line):
-        # if 搜尋的怪怪的
-        if str(ws_r.cell(row=r, column=2).value) == 'None' or str(ws_r.cell(row=r, column=2).value) == "":
+        # 確認搜尋條件是否合理
+        check_id = str(ws_r.cell(row=r, column=2).value)
+        check_pic_name = str(ws_r.cell(row=r, column=3).value)
+        if check_id == 'None' or check_id == "":
             ws_w.cell(row=r, column=3).value = 'null line'
             continue
-        if (len(str(ws_r.cell(row=r, column=3).value)) < 3) or str(ws_r.cell(row=r, column=3).value) == 'None':
+        if (len(check_pic_name) < 3) or check_pic_name == 'None':
             ws_w.cell(row=r, column=3).value = 'target??'
             continue
-
+        
         #判斷是否換一條步道
         if(tr_id != str(ws_r.cell(row=r, column=2).value)):
             tr_id = str(ws_r.cell(row=r, column=2).value)
@@ -75,8 +81,8 @@ def main(subFile='/05', line=1228, outputFile='output_2.xlsx'):
             imgToFind = str(ws_r.cell(row=r, column=3).value)
             p_isFound = findImg(imgToFind, files)
             writeOutput(p_isFound, r, tr_id, imgToFind)
-
+    print('save as : '+ outputFile)
     wb_write.save(outputFile)
 
 
-main('/05', 1235, 'tr_pic_output.xlsx')
+main('/05', 121, 'output_test.xlsx', './test.xlsx')
