@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import re as re 
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -37,10 +37,12 @@ class Application(tk.Frame):
         self.entry_outputFile.insert(0, 'output_test.xlsx')
         self.entry_outputFile.grid(row=1, column=3, padx=10, pady=10)
 
-
-
+        self.start_button = tk.Button(self, text = 'start', width = 10, command = self.start )
+        self.start_button.grid(row=2, column=2, padx=10, pady=10)
     def say_hi(self):
         print(self.rows.get())
+    def start(self):
+        re.main()
 
 
 root = tk.Tk()
