@@ -26,15 +26,15 @@ class Application(tk.Frame):
         self.label_inputFile = tk.Label(self, text='input excel:')
         self.label_inputFile.grid(row=1, column=0, padx=10, pady=10)
         self.inputFile = tk.StringVar()
-        self.entry_inputFile = tk.Entry(self, textvariable=self.inputFile, width=10)
-        self.entry_inputFile.insert(0, './test.xlsx')
+        self.entry_inputFile = tk.Entry(self, textvariable=self.inputFile, width=20)
+        self.entry_inputFile.insert(0, './tr_pic.xlsx')
         self.entry_inputFile.grid(row=1, column=1, padx=10, pady=10)
 
         self.label_outputFile = tk.Label(self, text='output excel:')
         self.label_outputFile.grid(row=1, column=2, padx=10, pady=10)
         self.outputFile = tk.StringVar()
-        self.entry_outputFile = tk.Entry(self, textvariable=self.outputFile, width=10)
-        self.entry_outputFile.insert(0, 'output_test.xlsx')
+        self.entry_outputFile = tk.Entry(self, textvariable=self.outputFile, width=20)
+        self.entry_outputFile.insert(0, 'tr_pic_output.xlsx')
         self.entry_outputFile.grid(row=1, column=3, padx=10, pady=10)
 
         self.start_button = tk.Button(self, text = 'start', width = 10, command = self.start )
@@ -42,7 +42,11 @@ class Application(tk.Frame):
     def say_hi(self):
         print(self.rows.get())
     def start(self):
-        tr.main()
+        subfile = self.subFile.get()
+        rows = int(self.rows.get())
+        inputFile = self.inputFile.get()
+        outputFile = self.outputFile.get() 
+        tr.main(subfile, rows, outputFile ,inputFile)
 
 
 root = tk.Tk()

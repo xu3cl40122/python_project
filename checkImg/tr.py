@@ -36,7 +36,7 @@ def writeOutput(isFound, row, tr_id, imgToFind):
 
 
 # --- main ---  
-def main(subFile='/05', line=1228, outputFile='output_2.xlsx', input_file='./tr_pic.xlsx'):
+def main(subFile='/05', line=1228, outputFile='tr_pic_output.xlsx', input_file='./tr_pic.xlsx'):
     global wb_write, wb_read , ws_w, ws_r
     # init excel to write
     wb_write = Workbook()
