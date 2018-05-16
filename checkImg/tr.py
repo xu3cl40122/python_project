@@ -64,7 +64,7 @@ def main(subFile='/05', line=1228, outputFile='tr_pic_output.xlsx', input_file='
             tr_id = str(ws_r.cell(row=r, column=2).value)
             print('change'+tr_id)
             # 依 loop 更換路徑
-            mypath = "./" + tr_id + subFile
+            mypath = "./img/" + tr_id + subFile
             # 取得路徑下所有檔案與子目錄名稱
             try:
                 files = listdir(mypath)
