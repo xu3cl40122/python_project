@@ -32,9 +32,6 @@ def writeOutput(isFound, row, tr_id, imgToFind):
     ws_w.cell(row=row, column=1).value = tr_id
 
 
-
-
-
 # --- main ---  
 def main(subFile='/05', line=1228, outputFile='tr_pic_output.xlsx', input_file='./tr_pic.xlsx'):
     global wb_write, wb_read , ws_w, ws_r
